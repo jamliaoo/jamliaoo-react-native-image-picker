@@ -114,3 +114,24 @@ For more, read the [API Reference](docs/Reference.md).
 ## License
 
 [MIT](LICENSE.md)
+
+key | iOS | Android | Description
+------ | ---- | ------- | ----------------------
+didCancel | OK | OK | Informs you if the user cancelled the process
+error | OK | OK | Contains an error message, if there is one
+customButton | OK | OK | If the user tapped one of your custom buttons, contains the name of it
+data | OK | OK | The base64 encoded image data (photos only)
+uri | OK | OK | The uri to the local file asset on the device (photo or video)
+origURL | OK | - | The URL of the original asset in photo library, if it exists
+isVertical | OK | OK | Will be true if the image is vertically oriented
+width | OK | OK | Image dimensions (photos only)
+height | OK | OK | Image dimensions (photos only)
+fileSize | OK | OK | The file size (photos only)
+type | - | OK | The file type (photos only)
+fileName | OK (photos and videos) | OK (photos) | The file name
+path | - | OK | The file path
+latitude | OK | OK | Latitude metadata, if available
+longitude | OK | OK | Longitude metadata, if available
+timestamp | OK | OK | Timestamp metadata, if available, in ISO8601 UTC format
+originalRotation | - | OK | Rotation degrees (photos only) *See [#109](/../../issues/199)*
+videoThumbnail | OK | - | The base64 encoded png thumbnail for video
