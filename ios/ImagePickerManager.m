@@ -468,7 +468,7 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
                 }
             }
 
-            if (videoURL) {
+            if (videoURL || !videoRefURL) {
                 [self.response setObject:videoDestinationURL.absoluteString forKey:@"uri"];
             }
             // get origin url
