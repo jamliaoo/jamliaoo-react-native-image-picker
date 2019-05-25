@@ -468,7 +468,22 @@ RCT_EXPORT_METHOD(showImagePicker:(NSDictionary *)options callback:(RCTResponseS
                 }
             }
 
-            [self.response setObject:videoDestinationURL.absoluteString forKey:@"uri"];
+            if (videoURL) {
+                [self.response setObject:videoDestinationURL.absoluteString forKey:@"uri"];
+            }
+            // get origin url
+            else if (videoRefURL) {
+                PHFetchResult *refResult = [PHAsset fetchAssetsWithALAssetURLs:@[videoRefURL] options:nil];                                                                                                                                        
+                PHVideoRequestOptions *videoRequestOptions = [[PHVideoRequestOptions alloc] init];
+                videoRequestOptions.version = PHVideoRequestOptionsVersionOriginal;
+                [[PHImageManager defaultManager] requestAVAssetForVideo:[refResult firstObject] options:videoRequestOptions resultHandler:^(AVAsset *asset, AVAudioMix *audioMix, NSDictionary *info) {
+                    if ([asset isKindOfClass:[AVURLAsset class]] && !videoURL) {
+                        NSURL *originURL = [(AVURLAsset *)asset URL];
+                        [self.response setObject:originURL.absoluteString forKey:@"uri"];
+                    }   
+                }]; 
+            }
+
             if (videoRefURL.absoluteString) {
                 [self.response setObject:videoRefURL.absoluteString forKey:@"origURL"];
             }
